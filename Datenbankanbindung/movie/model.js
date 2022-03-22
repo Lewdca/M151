@@ -15,16 +15,26 @@ export async function getAll() {
     return data;
 }
 
-async function insert() { TODO }
-async function update(movie) { TODO }
-export async function get(id) { TODO }
+async function insert(title, year) {
+    const query = 'INSERT INTO Movies VALUES(' + title + ',' + year + ');'
+    const [data] = await connection.query(query);
+    return data;
+}
+async function update(movie) {
+
+}
+export async function get(id) {
+    const query = 'SELECT * FROM Movies WHERE id =' + id;
+    const [data] = await connection.query(query);
+    return data;
+}
 export async function remove(id) {
     const query = 'DELETE FROM Movies WHERE id =' + id;
     const [data] = await connection.query(query);
     return data;
 }
-export function save(title, year) {
+export async function save(title, year) {
     const query = 'INSERT INTO Movies VALUES(' + title + ',' + year + ');'
-    const [data] = connection.query(query);
+    const [data] = await connection.query(query);
     return data;
 }

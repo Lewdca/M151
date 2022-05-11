@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=vmadmin@sluz.ch
+      - PGADMIN_DEFAULT_PASSWORD=sml12345
+    ports:
+      - "5000:80"
+    networks:
+      - postgres
+    volumes:
+       - pgadmin-data:/root/.pgadmin
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=vmadmin
+      - POSTGRES_PASSWORD=sml12345
+      - POSTGRES_DB=m151
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres-db:
+  pgadmin-data:

@@ -19,8 +19,8 @@ export function render(movie) {
         <input type="text" id="year" name="year" value="${movie.year}" />
       </div>
       <div>
-      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-      <label for="vehicle1">Public</label><br>
+      <input type="checkbox" id="public" name="public" value="true" ${movie.public?'checked':''}>
+      <label for="public">Public</label><br>
       </div>
       <div>
         <button type="submit">speichern</button>

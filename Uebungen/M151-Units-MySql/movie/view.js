@@ -1,5 +1,5 @@
 export function render(movies) {
-  return `
+    return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +18,27 @@ export function render(movies) {
         <tr>
           <td>${movie.id}</td>
           <td>${movie.title}</td>
+          <td>
+          <a href="/movie/${movie.id}/rate/1">${
+            movie.personalRating >= 1 ? "✭ " : "✩"
+          }</a>
+
+          <a href="/movie/${movie.id}/rate/2">${
+            movie.personalRating >= 2 ? "✭ " : "✩"
+          }</a>
+
+          <a href="/movie/${movie.id}/rate/3">${
+            movie.personalRating >= 3 ? "✭ " : "✩"
+          }</a>
+
+          <a href="/movie/${movie.id}/rate/4">${
+            movie.personalRating >= 4 ? "✭ " : "✩"
+          }</a>
+
+          <a href="/movie/${movie.id}/rate/5">${
+            movie.personalRating >= 5  ? "✭ " : "✩"
+          }</a>
+          </td>
           <td><a href="/movie/delete/${movie.id}">löschen</a></td>
           <td><a href="/movie/form/${movie.id}">bearbeiten</a></td> 
         </tr>`,

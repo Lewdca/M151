@@ -8,11 +8,31 @@ const connection = await mysql.createConnection({
     database: 'movie-db',
 });
 
+let i = 3
 await connection.connect();
 export async function getAll(userId) {
     const query = 'SELECT * FROM Movies WHERE public = 1 OR user = ?';
-    const [data] = await connection.query(query, userId);
+    const [data] = await connection.query(query, [userId]);
     return data;
+}
+
+export async function avarageRating(movieId) {
+    const query = 'SELECT avg(rating) as rating FROM Rating WHERE fk_filmId = ?';
+    const [data] = await connection.query(query, [movieId]);
+    return data.pop();
+}
+
+export async function userRating(movieId, userId) {
+    const query = 'SELECT * FROM Rating WHERE fk_filmId = ? AND fk_userId = ?';
+    const [data] = await connection.query(query, [movieId, userId]);
+    return data.pop();
+}
+
+export async function pushRating(rating) {
+    const query = 'Insert Into Rating(id, rating, fk_filmId, fk_userId) VALUES (' + i + ' , ?, ?, ?)';
+    const [result] = await connection.query(query, [rating.rating, rating.movieId, rating.userId])
+    i++;
+    return rating;
 }
 
 async function insert(movie) {
